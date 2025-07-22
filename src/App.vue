@@ -16,6 +16,10 @@
               <input type="number" class="form-control" id="ticketPrice" v-model="raffleData.ticketPrice" required>
             </div>
             <div class="mb-3">
+              <label for="lotteryDate" class="form-label">Fecha de la rifa</label>
+              <input type="date" class="form-control" id="lotteryDate" v-model="raffleData.lotteryDate" required>
+            </div>
+            <div class="mb-3">
               <label for="lottery" class="form-label">Lotería</label>
               <select class="form-select" id="lottery" v-model="raffleData.lottery" required>
                 <option value="" disabled selected>Seleccione una lotería</option>
@@ -185,17 +189,9 @@
       <h3>Información de la Rifa</h3>
       <p><strong>Premio:</strong> ${{ formatNumber(raffleData.prizeValue) }}</p>
       <p><strong>Precio boleta:</strong> ${{ formatNumber(raffleData.ticketPrice) }}</p>
+      <p><strong>Fecha de juego:</strong> {{ raffleData.lotteryDate }}</p>
       <p><strong>Lotería:</strong> {{ raffleData.lottery }}</p>
       <p><strong>Total boletas:</strong> {{ raffleData.ticketCount }}</p>
-      <p><strong>Boletas vendidas:</strong> {{ soldTicketsCount }}</p>
-      <p><strong>Boletas disponibles:</strong> {{ availableTicketsCount }}</p>
-      <p><strong>Recaudado:</strong> ${{ formatNumber(totalCollected) }}</p>
-      
-      <div class="mt-4">
-        <h5>Resumen por estado:</h5>
-        <p><span class="badge bg-paid me-2"></span> Pagadas: {{ paidTicketsCount }}</p>
-        <p><span class="badge bg-pending me-2"></span> Pendientes: {{ pendingTicketsCount }}</p>
-      </div>
       
       <button class="btn btn-secondary mt-3" @click="resetRaffle">Reiniciar Rifa</button>
     </div>
@@ -241,6 +237,7 @@ export default {
     const raffleData = ref({
       prizeValue: 0,
       ticketPrice: 0,
+      lotteryDate:'',
       lottery: '',
       ticketCount: '100'
     })
@@ -263,46 +260,46 @@ export default {
     
     const themes = ref([
       {
-        name: 'Clásico',
+        name: 'Arandano',
         colors: {
-          primary: '#007bff',
-          secondary: '#6c757d',
-          available: '#28a745',
-          paid: '#007bff',
-          pending: '#ffc107'
+          primary: '#30364a',
+          secondary: '#111016',
+          available: '#757b92',
+          paid: '#d2a283',
+          pending: '#c4d0ee'
+        },
+        textColor: 'white',
+      },
+      {
+        name: 'Sandia',
+        colors: {
+          primary: '#24e0b8',
+          secondary: '#007b00',
+          available: '#ff3031',
+          paid: '#24e0b8',
+          pending: '#ffcc51'
         },
         textColor: 'white'
       },
       {
-        name: 'Oscuro',
+        name: 'Limon',
         colors: {
-          primary: '#343a40',
-          secondary: '#6c757d',
-          available: '#28a745',
-          paid: '#6f42c1',
-          pending: '#fd7e14'
-        },
-        textColor: 'white'
-      },
-      {
-        name: 'Verano',
-        colors: {
-          primary: '#20c997',
-          secondary: '#6c757d',
-          available: '#20c997',
-          paid: '#fd7e14',
-          pending: '#ffc107'
+          primary: '#ffd500',
+          secondary: '#043007',
+          available: '#005c13',
+          paid: '#e59800',
+          pending: '#e2e2eb'
         },
         textColor: 'black'
       },
       {
         name: 'Fresa',
         colors: {
-          primary: '#dc3545',
-          secondary: '#6c757d',
-          available: '#dc3545',
-          paid: '#6610f2',
-          pending: '#fd7e14'
+          primary: '#df0000',
+          secondary: '#4a0000',
+          available: '#ffa5a9',
+          paid: '#2a5800',
+          pending: '#cad15e'
         },
         textColor: 'white'
       }
